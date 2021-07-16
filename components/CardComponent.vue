@@ -26,8 +26,8 @@ a:hover { text-decoration: none;  color: var(--black)}
 a:active { text-decoration: none;  color: var(--black)}
 .card-component{
     cursor: pointer;
-    width: 67.3rem;
-    height: 57.8rem;
+    width: 67rem;
+    height: 55rem;
     border-radius: 1.5rem;
     position: relative;
 }
@@ -45,9 +45,9 @@ a:active { text-decoration: none;  color: var(--black)}
     flex-direction: row;
 }
 .card-component-text-container{
-    width: 80.2%;
+    width: 80;
     max-height: 50%;
-    margin: 0 5.2rem auto;
+    margin: 0 5rem auto;
     position: absolute;
     top: 50%;
 }
@@ -84,7 +84,7 @@ a:active { text-decoration: none;  color: var(--black)}
 }
 .card-component-title {
     font-weight: bold;
-    font-size: 3.6rem;
+    font-size: 3rem;
     line-height: 4rem;
     color: var(--white);
 }
