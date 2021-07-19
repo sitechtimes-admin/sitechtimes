@@ -26,8 +26,6 @@ a:hover { text-decoration: none;  color: var(--black)}
 a:active { text-decoration: none;  color: var(--black)}
 .card-component{
     cursor: pointer;
-    width: 67rem;
-    height: 55rem;
     border-radius: 1.5rem;
     position: relative;
 }
