@@ -75,7 +75,7 @@ export default {
       }
      return (this.allArticles);
     }catch(e){
-      //await this.$router.push('/');
+      await this.$router.push('/');
     }
    }
   }
