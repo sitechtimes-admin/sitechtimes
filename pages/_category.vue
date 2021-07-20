@@ -20,7 +20,7 @@
          <CategoryArticle class="sub-art" v-if="articles[4]" :title="articles[4].title" :author="articles[4].user.name" :published="articles[4].createdAt" :imageUrl="articles[4].imageUrl" :category="category"/>
         <CategoryArticle class="sub-art" v-if="articles[3]" :title="articles[3].title" :author="articles[3].user.name" :published="articles[3].createdAt" :imageUrl="articles[3].imageUrl" :category="category"/>
           <CategoryArticle      
-      v-for="article in newArticles"
+      v-for="article in allArticles"
       :key="article"
       :category="article.category"
       :author="article.user.name"
@@ -29,7 +29,7 @@
       :imageUrl="article.imageUrl"
       :articleUrl="article.slug"/>
         <div class="entertainment-seymour">
-          <SeeMoreBtn class="seymour"  @click.native="newArticles()" />
+          <SeeMoreBtn class="seymour" v-if="moreToLoad" @click.prevent.native="newArticles()" />
           </div>
     </div>
     </div>
@@ -45,27 +45,37 @@ export default {
   data () {
     return {
       category: this.$route.params.category,
+      page: 2,
       articles: [],
+      allArticles: [],
+      moreToLoad: true
     }
   },
   async beforeMount () {
     try {
       const articles = await this.$axios.get(`/articles?category=${this.category}`);
       this.articles = articles.data;
-      console.log(articles)
     }catch(e){
       await this.$router.push('/');
     }
   },
   methods: {
-   newArticles: async function() {
+   async newArticles() {
     try {
-      const newArticles = await this.$axios.get(`/articles?category=${this.category}&q=5&page=1`);
+      const newArticles = await this.$axios.get(`/articles?category=${this.category}&q=5&page=${this.page}&sortBy=dateDes`);
       this.newArticles = newArticles.data;
-     console.log(newArticles.data);
-     this.$forceUpdate();
+      this.page++;
+      this.allArticles = [].concat(this.allArticles, newArticles.data);
+      console.log(this.newArticles);
+      if(this.newArticles.length < 5) {
+        this.moreToLoad = false;
+      }
+      else {
+        this.moreToLoad = true;
+      }
+     return (this.allArticles);
     }catch(e){
-      await this.$router.push('/');
+      //await this.$router.push('/');
     }
    }
   }
